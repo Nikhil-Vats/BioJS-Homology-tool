@@ -1,0 +1,43 @@
+{
+  "name": "homologues-finder",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "description": "BioJS Homology tool",
+  "homepage": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "./node_modules/.bin/webpack",
+    "server": "node dev/serve.js",
+    "start": "node dev/serve.js",
+    "dev": "./node_modules/.bin/webpack --watch",
+    "less": "lessc src/style.less dist/style.css --clean-css"
+  },
+  "keywords": [
+    "biojs",
+    "biojs-webcomponent"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "express": "^4.17.1",
+    "less": "^3.9.0",
+    "less-plugin-clean-css": "^1.5.1",
+    "webpack": "^4.32.2",
+    "webpack-cli": "^3.3.2",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "babel-loader": "^8.0.6",
+    "css-loader": "^2.1.1",
+    "hybrids": "^3.0.2",
+    "raw-loader": "^2.0.0"
+  },
+  "sniper": {
+    "buildJS": [
+      "/dist/main.js"
+    ],
+    "buildCSS": [
+      "/css/style.css"
+    ]
+  }
+}

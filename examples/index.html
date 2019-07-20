@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>BioJS Homology tool</title>
+  <link rel="icon" href="../img/favicon.png">
+  <!-- the library for the webcomponent -->
+  <script src="../dist/bundle.js" type="module"></script>
+  <style>
+  /* here's some basic styling for the demo pages. It's included embedded in the
+  page HTML so that it doesn't accidentally end up inside your component ;) */
+  body.demo {
+    font-family: roboto, sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
+  </style>
+</head>
+
+<body class="demo">
+
+  <h1>BioJS Homology tool demo</h1>
+
+  <!-- the geneId param below can be removed if needed - it's just an example of
+       how to pass values to the component's JS behaviours. -->
+  <homologues-finder geneId="BRCA1"></homologues-finder>
+
+</body>
+
+</html>
