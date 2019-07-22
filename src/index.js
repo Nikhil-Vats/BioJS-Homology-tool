@@ -2,6 +2,8 @@ import {
   define
 } from 'hybrids';
 import styles from '../dist/style.css';
+import { isNull } from 'util';
+const axios = require("axios");
 /* Add any additional library imports you may need here. */
 
 
@@ -37,44 +39,62 @@ function initComponent(options) {
     get: (host, v) => v, // required to be recognized as property descriptor,
     set: () => {}, //required to stop TypeError: setting getter-only property "x"
     connect: (host, key) => {
-
-      /**********************************************************/
-      /************************ GUIDANCE ************************/
-      /**********************************************************/
-      /** If your component uses a traditional approach of     **/
-      /** accepting an element and updating its content,       **/
-      /** initialise it here and pass `host` as the argument   **/
-      /** for the element that would normally be passed to     **/
-      /** your script. If you are creating your element from   **/
-      /** scratch, see the hybrids.js docs and maybe delete    **/
-      /** this method and follow the hybrids examples instead  **/
-      /** https://github.com/hybridsjs/hybrids                 **/
-      /**                                                      **/
-      /** See also this example component for guidance:        **/
-      /* https://github.com/yochannah/biojs-webcomponent-prototype
-      /** or admire the minimal demo below                     **/
-      /**                                                      **/
-      /**********************************************************/
-      /****** WRITE CODE TO INITIALISE YOUR COMPONENT HERE ******/
-      /**********************************************************/
-
-      /** If you need to pass in a parameter - e.g. perhaps    **/
-      /** you have a gene visualisation so you want a gene id  **/
-      /** as a parameter, set the parameter as an attribute,   **/
-      /** and then get the attribute from host, like this:     **/
-
-      var myGeneId = host.getAttribute("geneId"); 
-
-      /** The line above would return BRCA1 if you've left the **/
-      /** default settings. Delete if needed. **/
-      /** This is just an example, you should remove it later. **/
-
-      host.innerHTML = "<div>A placeholder for a pretty" +
-        " visualisation for " + myGeneId + ".</div>";
-
-      /** The line above explains how you can interact with your Web Component. **/
-      /** You should remove it later. **/
-
+      var res;
+      var organism = host.getAttribute("organism");
+      var URL = 'http://registry.intermine.org/service';
+      axios.get(URL + '/instances', {
+        params: { q:"q - " + organism
+}      })
+      .then((response) => {
+        res = JSON.parse(response.request.response);
+        console.log(res.instances);
+        findHomologues();
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    
+      function findHomologues() {
+        var service  = {root: res.instances[0].url};
+        var query    = {
+          "from": "Gene",
+          "select": [
+            "organism.name",
+            "symbol",
+            "name",
+            "primaryIdentifier",
+            "secondaryIdentifier"
+          ],
+          "orderBy": [
+            {
+              "path": "symbol",
+              "direction": "ASC"
+            }
+          ],
+          "where": [
+            {
+              "path": "homologues.homologue",
+              "op": "LOOKUP",
+              "value": host.getAttribute("gene"), // REPLACE VALUE WITH THE GENE TO BE SEARCHED FOR
+              "extraValue": "",
+              "code": "A"
+            }
+          ]
+        };
+        intermine = new imjs.Service(service);
+        var array;
+        intermine.records(query).then(function(response) {
+          console.log(response);
+          var result = array.reduce((unique, o) => {
+            if(!unique.some(obj => obj.name === o.name && obj.symbol === o.symbol)) {
+              unique.push(o);
+            }
+            return unique;
+          },[]);
+          console.log(array, result);
+        });
+      
+      }
       //leave this line here. Deleting it will result in your css going AWOL.
       addStylesIfNeeded();
     }
