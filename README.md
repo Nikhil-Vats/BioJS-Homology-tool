@@ -9,6 +9,7 @@ Hey! If you'd like to use this component on your webpage, please do the followin
 ### In the `<head>`, add:
 ```html
 <!-- the library for the webcomponent -->
+<script src="https://cdn.jsdelivr.net/npm/imjs@3.16.0/dist/im.js"></script>
 <script src="dist/bundle.js" type="module"></script>
 ```
 
@@ -20,7 +21,7 @@ Where you want your WebComponent to appear, add the following:
 
 ```html
 <homologues-finder
-   geneId="BRCA1">
+   gene="value" organism="value">
  </homologues-finder>
 ```
 
