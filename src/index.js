@@ -5,6 +5,7 @@ import styles from '../dist/style.css';
 import { isNull } from 'util';
 import { networkInterfaces } from 'os';
 const axios = require("axios");
+const imjs = require("imjs");
 /* Add any additional library imports you may need here. */
 
 
