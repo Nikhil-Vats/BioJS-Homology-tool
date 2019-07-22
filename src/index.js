@@ -3,9 +3,7 @@ import {
 } from 'hybrids';
 import styles from '../dist/style.css';
 import { isNull } from 'util';
-import { networkInterfaces } from 'os';
 const axios = require("axios");
-const imjs = require("imjs");
 /* Add any additional library imports you may need here. */
 
 
@@ -43,7 +41,7 @@ function initComponent(options) {
     connect: (host, key) => {
       var res;
       var organism = host.getAttribute("organism");
-      var URL = 'http://registry.intermine.org/service';
+      var URL = 'https://registry.intermine.org/service';
       axios.get(URL + '/instances', {
         params: { q:"q - " + organism
 }      })
