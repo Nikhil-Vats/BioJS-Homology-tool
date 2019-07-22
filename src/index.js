@@ -3,6 +3,7 @@ import {
 } from 'hybrids';
 import styles from '../dist/style.css';
 import { isNull } from 'util';
+import { networkInterfaces } from 'os';
 const axios = require("axios");
 /* Add any additional library imports you may need here. */
 
@@ -48,14 +49,20 @@ function initComponent(options) {
       .then((response) => {
         res = JSON.parse(response.request.response);
         console.log(res.instances);
-        findHomologues();
+        if(res.instances.length === 0) {
+          throw("No results");
+        }
+        res.instances.map((value, index) => {
+          findHomologues(value.url, index + 1, value.name);
+        })
       })
       .catch((err) => {
         console.log(err);
+        document.getElementById('status').innerHTML = 'Error:' + err;
       })
     
-      function findHomologues() {
-        var service  = {root: res.instances[0].url};
+      function findHomologues(url, index, interMineName) {
+        var service  = {root: url};
         var query    = {
           "from": "Gene",
           "select": [
@@ -85,6 +92,9 @@ function initComponent(options) {
         var array, result;
         intermine.records(query).then(function(response) {
           console.log(response);
+          if(!response.length) {
+            throw("No result");
+          }
           array = response.map((value) => {
             if(isNull(value.symbol)) {
               return { symbol: value.primaryIdentifier, name: value.organism.name }
@@ -99,12 +109,29 @@ function initComponent(options) {
             return unique;
           },[]);
           console.log(result);
-          var list = "<tr><th>Organism Name</th><th>Gene Symbol</th></tr>";
+          var list;
+          if(index === 1) {
+            var intermineNameRow = document.createElement('tr');
+            intermineNameRow.innerHTML = "<th style=background-color:black;color:white;>INTERMINE</th><th style=background-color:black;color:white;>" + interMineName + "</th>";
+            var headingRow = document.createElement('tr');
+            headingRow.innerHTML = "<th>Organism Name</th><th>Gene Symbol</th>";
+            document.getElementById('results').appendChild(intermineNameRow);
+            document.getElementById('results').appendChild(headingRow);
+          } else {
+            var intermineNameRow = document.createElement('tr');
+            intermineNameRow.innerHTML = "<th style=background-color:black;color:white;>INTERMINE</th><th style=background-color:black;color:white;>" + interMineName + "</th>";
+            document.getElementById('results').appendChild(intermineNameRow);
+          }
           result.map((value) => {
-            list = list + `<tr><th>${value.symbol}</th><th>${value.name}</th></tr>`;
+            var newRow = document.createElement('tr');
+            newRow.innerHTML = `<tr><th>${value.symbol}</th><th>${value.name}</th></tr>`;
             document.getElementById('status').style.display = 'none';
-            document.getElementById('results').innerHTML = list;
+            document.getElementById('results').append(newRow);
           })
+        })
+        .catch((err) => {
+          console.log(err);
+          document.getElementById('status').innerHTML = 'Error:' + err;
         });
       }
       //leave this line here. Deleting it will result in your css going AWOL.
