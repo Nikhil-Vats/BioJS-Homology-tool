@@ -82,18 +82,30 @@ function initComponent(options) {
           ]
         };
         intermine = new imjs.Service(service);
-        var array;
+        var array, result;
         intermine.records(query).then(function(response) {
           console.log(response);
-          var result = array.reduce((unique, o) => {
+          array = response.map((value) => {
+            if(isNull(value.symbol)) {
+              return { symbol: value.primaryIdentifier, name: value.organism.name }
+            } else {
+              return { symbol: value.symbol, name: value.organism.name }
+            }
+          })
+          result = array.reduce((unique, o) => {
             if(!unique.some(obj => obj.name === o.name && obj.symbol === o.symbol)) {
               unique.push(o);
             }
             return unique;
           },[]);
-          console.log(array, result);
+          console.log(result);
+          var list = "<tr><th>Organism Name</th><th>Gene Symbol</th></tr>";
+          result.map((value) => {
+            list = list + `<tr><th>${value.symbol}</th><th>${value.name}</th></tr>`;
+            document.getElementById('status').style.display = 'none';
+            document.getElementById('results').innerHTML = list;
+          })
         });
-      
       }
       //leave this line here. Deleting it will result in your css going AWOL.
       addStylesIfNeeded();
