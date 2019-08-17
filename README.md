@@ -1,4 +1,4 @@
-#  BioJS Homology tool
+#  BioJS Homology tool [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
 
 Finds and shows all possible homologues of a gene, given an organism and a gene. Uses the [InterMine registry](http://registry.intermine.org).
 

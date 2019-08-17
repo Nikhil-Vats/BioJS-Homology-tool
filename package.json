@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "src/index.js",
   "description": "BioJS Homology tool",
-  "homepage": "",
+  "homepage": "https://nikhil-vats.github.io/BioJS-Homology-tool/index.html ",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "./node_modules/.bin/webpack",
