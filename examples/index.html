@@ -19,31 +19,16 @@
     align-items: center;
     justify-content: center;
   }
-  table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
-
-  td, th {
-    border: 1px solid #dddddd;
-    text-align: left;
-    padding: 8px;
-  }
-
-  tr:nth-child(even) {
-    background-color: #dddddd;
-  }
   </style>
 </head>
 
 <body class="demo">
 
-  <h1>BioJS Homology tool demo</h1>
+  <h1 style="color:#007e3a;">BioJS Homology Tool</h1>
 
   <!-- the geneId param below can be removed if needed - it's just an example of
        how to pass values to the component's JS behaviours. -->
-  <homologues-finder gene="GATA1" organism="S. cerevisiae"></homologues-finder>
+  <homologues-finder gene="GATA1" organism="S. cerevisiae" class="BioJSHomologyTool"></homologues-finder>
   <h1 id="status">Loading..</h1>
   <table id="results"></table>
 </body>

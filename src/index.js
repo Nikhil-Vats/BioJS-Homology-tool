@@ -110,11 +110,11 @@ function initComponent(options) {
           console.log(result);
           var list;
           if(index === 1) {
-            var intermineNameRow = document.createElement('tr');
-            intermineNameRow.innerHTML = "<th style=background-color:black;color:white;>INTERMINE</th><th style=background-color:black;color:white;>" + interMineName + "</th>";
+            var intermineNameRow = document.createElement('div');
+            intermineNameRow.innerHTML = "<h3 style='color: #007e3a;'>INTERMINE: " + interMineName + "</h3>";
             var headingRow = document.createElement('tr');
-            headingRow.innerHTML = "<th>Organism Name</th><th>Gene Symbol</th>";
-            document.getElementById('results').appendChild(intermineNameRow);
+            headingRow.innerHTML = "<th style=background-color:black;color:white;>Organism Name</th><th style=background-color:black;color:white;>Gene Symbol</th>";
+            document.getElementsByClassName('BioJSHomologyTool')[0].appendChild(intermineNameRow);
             document.getElementById('results').appendChild(headingRow);
           } else {
             var intermineNameRow = document.createElement('tr');
