@@ -1,6 +1,6 @@
-#  BioJS Homology tool [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
+#  BioJS Homology tool
 
-Finds and shows all possible homologues of a gene, given an organism and a gene. Uses the [InterMine registry](http://registry.intermine.org).
+Finds and shows all possible homologues of a gene, given an organism and a gene. Uses the [InterMine registry](http://registry.intermine.org). Download it from [npm](https://www.npmjs.com/package/intermine-homologues-finder).
 
 ## Component user docs: adding this component to your webpage
 
