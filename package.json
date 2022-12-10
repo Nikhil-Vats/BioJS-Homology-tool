@@ -23,7 +23,7 @@
     "imjs": "^3.16.0"
   },
   "devDependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "less": "^3.9.0",
     "less-plugin-clean-css": "^1.5.1",
     "webpack": "^4.32.2",
